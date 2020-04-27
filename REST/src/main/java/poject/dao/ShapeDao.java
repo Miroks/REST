@@ -1,10 +1,9 @@
 package poject.dao;
 
 
-import com.sun.prism.PixelFormat;
 import org.springframework.stereotype.Repository;
 import poject.domain.Circle;
-import poject.domain.DataTable;
+import poject.domain.Shape;
 import poject.domain.Square;
 
 import javax.persistence.EntityManager;
@@ -20,8 +19,20 @@ public class ShapeDao {
     private EntityManager entityManager;
 
     @Transactional
-    public List<DataTable> getAll() {
-        return entityManager.createQuery("select e from DataTable e", DataTable.class).getResultList();
+    public List<Shape> getAll() {
+        return entityManager.createQuery("SELECT e FROM Shape e", Shape.class).getResultList();
+    }
+
+    @Transactional
+    public Shape searchById(Long i){
+        return entityManager.createQuery("SELECT e FROM Shape e WHERE e.id=:value",Shape.class).setParameter("value",i).getSingleResult();
+    }
+
+    @Transactional
+    public Shape deleteById(Long i){
+        Shape shape = entityManager.createQuery("SELECT e FROM Shape e WHERE e.id=:value",Shape.class).setParameter("value",i).getSingleResult();
+        entityManager.createQuery("DELETE FROM Shape WHERE id=:value").setParameter("value",i).executeUpdate();
+        return shape;
     }
 
     @Transactional
