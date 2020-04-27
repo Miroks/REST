@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import poject.dao.ShapeDao;
 import poject.domain.Circle;
-import poject.domain.DataTable;
+import poject.domain.Shape;
 import poject.domain.Square;
 
 import java.util.List;
@@ -18,18 +18,28 @@ public class ShapeService {
     ShapeDao shapeDao;
 
 
-    public List<DataTable> getAll() {
+    public List<Shape> getAll() {
         return shapeDao.getAll();
     }
 
-    public List<DataTable> getAllCircle() {
+    public List<Shape> getAllCircle() {
         return shapeDao.getAll().stream()
                 .filter(b -> "Circle".equals(b.getType())).collect(Collectors.toList());
     }
 
-    public List<DataTable> getAllSquare() {
+    public List<Shape> getAllSquare() {
         return shapeDao.getAll().stream()
                 .filter(b -> "Square".equals(b.getType())).collect(Collectors.toList());
+    }
+
+    public Shape searchById(Long i){
+        return shapeDao.searchById(i);
+    }
+
+    public Shape deleteById(Long i){
+        //Shape shape = shapeDao.searchById(i);
+        return shapeDao.deleteById(i);
+        //return shape;
     }
 
     public void addC(Circle circle) {

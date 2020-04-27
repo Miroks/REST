@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Shape")
-public class DataTable {
+public class Shape {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
